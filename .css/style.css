@@ -27,3 +27,10 @@ img {
 .imgPlanta {
     width: 200px;
 }
+
+.botonAdd {
+    background-color: lightcoral;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
