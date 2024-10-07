@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantas Manolo</title>
+    <link rel='stylesheet' href='.css/style.css'>
+    <script src="./js/data.js"></script>
+</head>
+
+<body>
+    <header>cabecera</header>
+    <main>
+        <div class="container">
+            <div class="filtros ">
+                <form action="" method="post">
+                    <label for="inputPrecioMax">Precio Máximo</label>
+                    <input type="number" class="precioMax" id="inputPrecioMax" name="precioMax">
+                    <label for="inputPrecioMin">Precio Mínimo</label>
+                    <input type="number" class="precioMin" id="inputPrecioMin" name="precioMin">
+                    <label for="inputEnStock">Mostrar solo si hay stock</label>
+                    <input class="form-check-input" type="checkbox" name="EnStock" id="inputEnStock">
+                </form>
+            </div>
+            <div class="carrito">
+                <h3>Carrito de Compras</h3>
+                <div class="listaCarrito"></div>
+                <div class="botonVaciarCarrito botonGeneral">Vaciar Carrito</div>
+                <div class="botonProceder botonGeneral">Proceder a Comprar</div>
+            </div>
+            <div class="container">
+            </div>
+    </main>
+    <footer>footer</footer>
+    <script src="./js/funciones.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
