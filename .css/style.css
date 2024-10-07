@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+    /*hace que las cajas crezcan hacia adrentro no hacia afuera*/
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    display: block
+}
+
+.planta {
+    background-color: lightblue;
+    border-radius: 10px;
+}
+
+.plantas {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+
+.imgPlanta {
+    width: 200px;
+}
