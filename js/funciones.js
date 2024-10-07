@@ -57,18 +57,7 @@ function buscarPosEnArray(lista, id) {
     });
     return resultadoPos;
 }
-
-function pintarCarrito(carrito, domElem) {
-    listaCarritoEH.innerHTML = "";
-    for (let linea of carrito) {
-        const lineaCompraEH = document.createElement("p");
-        lineaCompraEH.textContent = `${linea.i} - ${linea.nombre}: ${linea.cantidad}x${linea.precio}€ = ${(linea.cantidad * linea.precio).toFixed(2)}€`;
-        listaCarritoEH.appendChild(lineaCompraEH);
-    }
-    //TODO pintar suma total si hay cosas en el carrito
-}
-
-//añadir al array carrito la planta 
+//añadir al array carrito la planta, NO pinta 
 function agregarLineaArrayCarrito(idProducto) {
     //busco la pos de planta en plantasDB para mirar sus datos
     const posEnPlantasDB = buscarPosEnArray(plantasDB, idProducto);
@@ -89,7 +78,17 @@ function agregarLineaArrayCarrito(idProducto) {
         alert("No hay stock de esta planta");
     }
 }
-
+//Pintar <div> carrito
+function pintarCarrito(carrito, domElem) {
+    listaCarritoEH.innerHTML = "";
+    for (let linea of carrito) {
+        const lineaCompraEH = document.createElement("p");
+        lineaCompraEH.textContent = `${linea.i} - ${linea.nombre}: ${linea.cantidad}x${linea.precio}€ = ${(linea.cantidad * linea.precio).toFixed(2)}€`;
+        listaCarritoEH.appendChild(lineaCompraEH);
+    }
+    //TODO pintar suma total si hay cosas en el carrito
+}
+//Funcion llama a las anteriores y que es llamada por listener del boton "Añadir al Carrito"
 function agregarProductoACarrito(idPlanta) {
     agregarLineaArrayCarrito(idPlanta);
     pintarCarrito(carrito, listaCarritoEH);
