@@ -25,12 +25,26 @@ img {
 }
 
 .imgPlanta {
-    width: 200px;
+    width: 100px;
 }
 
-.botonAdd {
+.lineaCarrito {
+    display: inline-block;
+}
+
+.botonBase {
+    display: inline-block;
     background-color: lightcoral;
     border-radius: 5px;
     padding: 5px;
     cursor: pointer;
+}
+
+.botonAdd {}
+
+.botonPeq {}
+
+.sumaTotal {
+    font-weight: bolder;
+    color: red;
 }
