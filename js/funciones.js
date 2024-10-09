@@ -96,47 +96,49 @@ function sumarCarrito(carrito) {
 //funcion PINTAR <div> carrito
 function pintarCarrito(carrito, domElem) {
     domElem.innerHTML = "";
-    for (let linea of carrito) {
-        //div con la linea entera de la planta incluidos los botones
-        const lineaCarritoEH = document.createElement("div");
+    if (carrito.length > 0) {//si no hay lineas en carro no gasto proceso para pintar NADA
+        for (let linea of carrito) {
+            //div con la linea entera de la planta incluidos los botones
+            const lineaCarritoEH = document.createElement("div");
 
-        const lineaPlantaYValoresEH = document.createElement("p");
-        lineaPlantaYValoresEH.classList.add("lineaCarrito");
-        lineaPlantaYValoresEH.textContent = `${linea.id} - ${linea.nombre}: ${linea.cantidad}x${linea.precio}€ = ${(linea.cantidad * linea.precio).toFixed(2)}€`;
+            const lineaPlantaYValoresEH = document.createElement("p");
+            lineaPlantaYValoresEH.classList.add("lineaCarrito");
+            lineaPlantaYValoresEH.textContent = `${linea.id} - ${linea.nombre}: ${linea.cantidad}x${linea.precio}€ = ${(linea.cantidad * linea.precio).toFixed(2)}€`;
 
-        const botonMenosEH = document.createElement("div");
-        botonMenosEH.textContent = " - ";
-        //se podria usar setAttribute("id",linea.id) usando el atributo
-        //existente id pero no creo que sea profesional, recuerda dataset necesita del
-        //atributo en html data-loquesea, luego se le llama con dataset.id (sin el data- delante)
-        botonMenosEH.setAttribute("data-id", linea.id);
-        botonMenosEH.dataset = linea.id;
-        botonMenosEH.classList.add("botonBase");
-        botonMenosEH.addEventListener("click", restarUnaPlanta);
+            const botonMenosEH = document.createElement("div");
+            botonMenosEH.textContent = " - ";
+            //se podria usar setAttribute("id",linea.id) usando el atributo
+            //existente id pero no creo que sea profesional, recuerda dataset necesita del
+            //atributo en html data-loquesea, luego se le llama con dataset.id (sin el data- delante)
+            botonMenosEH.setAttribute("data-id", linea.id);
+            botonMenosEH.dataset = linea.id;
+            botonMenosEH.classList.add("botonBase");
+            botonMenosEH.addEventListener("click", restarUnaPlanta);
 
-        const botonMasEH = document.createElement("div");
-        botonMasEH.textContent = " + ";
-        botonMasEH.dataset = linea.id;
-        botonMasEH.setAttribute("data-id", linea.id);
-        botonMasEH.classList.add("botonBase");
-        botonMasEH.addEventListener("click", sumarUnaPlanta);
+            const botonMasEH = document.createElement("div");
+            botonMasEH.textContent = " + ";
+            botonMasEH.dataset = linea.id;
+            botonMasEH.setAttribute("data-id", linea.id);
+            botonMasEH.classList.add("botonBase");
+            botonMasEH.addEventListener("click", sumarUnaPlanta);
 
-        const botonQuitarEH = document.createElement("div");
-        botonQuitarEH.textContent = " Eliminar ";
-        botonQuitarEH.dataset = linea.id;
-        botonQuitarEH.setAttribute("data-id", linea.id);
-        botonQuitarEH.classList.add("botonBase");
-        botonQuitarEH.addEventListener("click", quitarPlanta);
+            const botonQuitarEH = document.createElement("div");
+            botonQuitarEH.textContent = " Eliminar ";
+            botonQuitarEH.dataset = linea.id;
+            botonQuitarEH.setAttribute("data-id", linea.id);
+            botonQuitarEH.classList.add("botonBase");
+            botonQuitarEH.addEventListener("click", quitarPlanta);
 
-        lineaCarritoEH.append(lineaPlantaYValoresEH, botonMenosEH, botonMasEH, botonMenosEH, botonMasEH, botonQuitarEH);
-        domElem.appendChild(lineaCarritoEH);
+            lineaCarritoEH.append(lineaPlantaYValoresEH, botonMenosEH, botonMasEH, botonMenosEH, botonMasEH, botonQuitarEH);
+            domElem.appendChild(lineaCarritoEH);
+        }
+        //despues de todas las lineas añado la suma total
+
+        const sumaTotalEH = document.createElement("div");
+        sumaTotalEH.classList.add("sumaTotal");
+        sumaTotalEH.textContent = sumarCarrito(carrito) + "€";//funcion que suma todo el carrito
+        domElem.appendChild(sumaTotalEH);//finalmente pinto la suma abajo del carrito
     }
-    //despues de todas las lineas añado la suma total
-    //TODO si no hay lineas no se tiene que ver suma total, pasa cuando borramos carrito.
-    const sumaTotalEH = document.createElement("div");
-    sumaTotalEH.classList.add("sumaTotal");
-    sumaTotalEH.textContent = sumarCarrito(carrito) + "€";//funcion que suma todo el carrito
-    domElem.appendChild(sumaTotalEH);//finalmente pinto la suma abajo del carrito
 }
 
 //Funcion llama a las anteriores y que es llamada por listener del boton "Añadir al Carrito"
@@ -150,7 +152,7 @@ function agregarProductoACarrito(idPlanta) {
 
 //funcion sumar +1 a una planta que ya esta en el carrito si es que queda stock en plantasDB
 function sumarUnaPlanta(event) {
-    const id = event.target.dataset.id;
+    const id = event.target.dataset.id;//no es necesario pero es mas corto asi
     const posEnPlantasDB = buscarPosEnArray(plantasDB, id);//busco la pos de planta en plantasDB para mirar sus datos
     const hayStock = plantasDB[posEnPlantasDB].stock;//miro si hay stock de la planta
     const posEnCarrito = buscarPosEnArray(carrito, id);//busco la pos en el carrito de la planta
@@ -164,13 +166,59 @@ function sumarUnaPlanta(event) {
     }
 }
 
-//TODO funcion restar -1 a una planta que ya esta en el carrito
+//funcion restar -1 a una planta que ya esta en el carrito
 function restarUnaPlanta(event) {
-    //restar -1 hasta que cuando quede 1 quitar la linea
+    const id = event.target.dataset.id;
+    const posEnPlantasDB = buscarPosEnArray(plantasDB, id);
+    const posEnCarrito = buscarPosEnArray(carrito, id);
+    if (carrito[posEnCarrito].cantidad > 1) {
+        carrito[posEnCarrito].cantidad--;
+        plantasDB[posEnPlantasDB].stock++;
+    } else {
+        quitarPlanta(event);
+    }
+    pintarCarrito(carrito, listaCarritoEH);
+    pintarTodasPlantas(plantasDB, plantasEH);
 }
 
-//TODO funcion quitar una planta que ya esta en el carrito indiferentemente de la cantidad
-function quitarPlanta() {
-    console.log("quitar una planta", event.target.dataset.id);
+//funcion quitar una planta que ya esta en el carrito indiferentemente de la cantidad
+function quitarPlanta(event) {
+    const id = event.target.dataset.id;
+    const posEnPlantasDB = buscarPosEnArray(plantasDB, id);
+    const posEnCarrito = buscarPosEnArray(carrito, id);
+    const cantidad = carrito[posEnCarrito].cantidad;
+    console.log("cantidad en linea carrito", cantidad);
+    console.log("Stock en planta: ", plantasDB[posEnPlantasDB].stock);
+    plantasDB[posEnPlantasDB].stock += cantidad;
+    carrito.splice(posEnCarrito, 1);
+    pintarCarrito(carrito, listaCarritoEH);
+    pintarTodasPlantas(plantasDB, plantasEH);
 }
 
+const botonVaciarCarritoEH = document.querySelector(".botonVaciarCarrito");
+botonVaciarCarritoEH.addEventListener("click", vaciarCarrito);
+function vaciarCarrito() {
+    if (carrito.length > 0) {
+        for (let linea of carrito) {
+            const posEnPlantasDB = buscarPosEnArray(plantasDB, linea.id);
+            plantasDB[posEnPlantasDB].stock += linea.cantidad;
+        }
+        carrito.splice(0, carrito.length);
+        pintarCarrito(carrito, listaCarritoEH);
+        pintarTodasPlantas(plantasDB, plantasEH);
+    } else {
+        alert("No hay nada que vaciar")
+    }
+}
+
+const botonProcederEH = document.querySelector(".botonProceder");
+botonProcederEH.addEventListener("click", (event) => {
+    if (carrito.length > 0) {
+        alert("Se han comprado correctamente los siguiente productos:\n" + listaCarritoEH.textContent);
+        listaCarritoEH.textContent = "";
+    } else {
+        alert("No hay nada que comprar en la lista");
+    }
+})
+
+//TODO filtros precios, hay stock y nombre
