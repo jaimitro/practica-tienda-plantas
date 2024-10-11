@@ -1,13 +1,54 @@
 //declaro valores iniciales
+const carrito = [];
 const plantasEH = document.querySelector(".plantas");
 const listaCarritoEH = document.querySelector(".listaCarrito");
-const carrito = [];
+
+const botonVaciarCarritoEH = document.querySelector(".botonVaciarCarrito");
+botonVaciarCarritoEH.addEventListener("click", vaciarCarrito);
+
+const botonProcederEH = document.querySelector(".botonProceder");
+botonProcederEH.addEventListener("click", procederCompra);
+
+const formFiltroPrecio = document.getElementById("formFiltroPrecio");
+formFiltroPrecio.addEventListener("submit", (event) => {
+    event.preventDefault();
+    pintarFiltradoPorPrecio(plantasDB);
+});
+//sin buscar la restriccion de caracteres: metodos para evitar que escriba texto
+const campoPrecioMin = document.getElementById("inputPrecioMin");
+campoPrecioMin.addEventListener("input", (event) => {
+    event.target.value = Number(event.target.value);
+    if (isNaN(event.target.value)) event.target.value = "";
+});
+
+const campoPrecioMax = document.getElementById("inputPrecioMax");
+campoPrecioMax.addEventListener("input", (event) => {
+    event.target.value = Number(event.target.value);
+    if (isNaN(event.target.value)) event.target.value = "";
+});
+//check stock: si se activa cada vez que SE REPINTEN las plantas
+//no aparecerán las que tengan stock 0
+const checkStock = document.getElementById("inputEnStock");
+checkStock.addEventListener("change", (event) => {
+    pintarTodasPlantas(plantasDB, plantasEH);
+});
+//Ver todas dejará limpios los filtros y repintará todas
+const botonVerTodas = document.getElementById("verTodas");
+botonVerTodas.addEventListener("click", (event) => {
+    campoPrecioMax.value = "";
+    campoPrecioMin.value = "";
+    checkStock.checked = false;
+    pintarTodasPlantas(plantasDB, plantasEH);
+});
 
 //___________________________FUNCIONES PLANTAS_____________________________________
 
 function retornaHTMLUnaPlanta(producto) {
     const articleEH = document.createElement("article");
     articleEH.classList.add("planta");
+    //si no hay stock el fondo es de otro color, podría evitar añadir tambien
+    //el boton Añadir al Carrito
+    if (producto.stock < 1) articleEH.classList.add("plantaSinStock");
     const idEH = document.createElement("div");
     idEH.textContent = producto.id;
     const nombreEH = document.createElement("div");
@@ -46,6 +87,12 @@ function retornaHTMLUnaPlanta(producto) {
 
 function pintarTodasPlantas(listaProductos, domElem) {
     domElem.innerHTML = "";
+    //Si el check solo con stock está activo primero filtra por stock
+    if (checkStock.checked) listaProductos = filtrarPorStock(listaProductos);
+    //Si hay algo escrito en precio max/min se tiene que filtrar por precios
+    if (campoPrecioMax.value != "" && campoPrecioMin.value != "") {
+        listaProductos = filtrarPorPrecio(listaProductos, campoPrecioMin.value, campoPrecioMax.value);
+    }
     for (let producto of listaProductos) {
         domElem.appendChild(retornaHTMLUnaPlanta(producto));
     }
@@ -187,16 +234,12 @@ function quitarPlanta(event) {
     const posEnPlantasDB = buscarPosEnArray(plantasDB, id);
     const posEnCarrito = buscarPosEnArray(carrito, id);
     const cantidad = carrito[posEnCarrito].cantidad;
-    console.log("cantidad en linea carrito", cantidad);
-    console.log("Stock en planta: ", plantasDB[posEnPlantasDB].stock);
     plantasDB[posEnPlantasDB].stock += cantidad;
     carrito.splice(posEnCarrito, 1);
     pintarCarrito(carrito, listaCarritoEH);
     pintarTodasPlantas(plantasDB, plantasEH);
 }
-
-const botonVaciarCarritoEH = document.querySelector(".botonVaciarCarrito");
-botonVaciarCarritoEH.addEventListener("click", vaciarCarrito);
+//Funcion del boton Vaciar carrito
 function vaciarCarrito() {
     if (carrito.length > 0) {
         for (let linea of carrito) {
@@ -210,15 +253,39 @@ function vaciarCarrito() {
         alert("No hay nada que vaciar")
     }
 }
-
-const botonProcederEH = document.querySelector(".botonProceder");
-botonProcederEH.addEventListener("click", (event) => {
+//funcion proceder a comprar solamente muestra mensaje no hace nada
+function procederCompra() {
     if (carrito.length > 0) {
         alert("Se han comprado correctamente los siguiente productos:\n" + listaCarritoEH.textContent);
         listaCarritoEH.textContent = "";
     } else {
         alert("No hay nada que comprar en la lista");
     }
-})
+}
 
-//TODO filtros precios, hay stock y nombre
+//________________________________FILTROS__________________________
+
+//Devuelve el array filtrado por precio
+function filtrarPorPrecio(lista, precioMin, precioMax) {
+    const listaFiltrada = lista.filter((planta) => {
+        return planta.precio >= precioMin && planta.precio <= precioMax;
+    })
+    return listaFiltrada;
+}
+//Devuleve el array filtrado por stock
+function filtrarPorStock(lista) {
+    const listaFiltrada = lista.filter((planta) => {
+        return planta.stock > 0;
+    })
+    return listaFiltrada;
+}
+//PINTA lo filtrado por precio
+function pintarFiltradoPorPrecio(lista) {
+    const pMax = campoPrecioMax.value;
+    const pMin = campoPrecioMin.value;
+    if (pMin != "" && pMax != "" && pMax >= pMin) {
+        pintarTodasPlantas(filtrarPorPrecio(plantasDB, pMin, pMax), plantasEH);
+    } else {
+        alert("El precio mínimo no puede ser mayor que el precio máximo.");
+    }
+}

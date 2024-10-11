@@ -10,7 +10,29 @@
 </head>
 
 <body>
-    <header>cabecera</header>
+    <header class="cabecera">
+        <div class="container">
+            <div>
+                <img src="" alt="">LOGO
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="">Inicio</a></li>
+                    <li><a href="">Plantas</a></li>
+                    <li><a href="">Blog</a></li>
+                    <li><a href="">Contacto</a></li>
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    <li><a href="">info</a></li>
+                    <li><a href="">Teléfono</a></li>
+                    <li><a href="">Carrito</a></li>
+                    <li><a href="">Usuario</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     <main>
         <div class="container">
             <div class="carrito">
@@ -21,13 +43,15 @@
                 <hr>
             </div>
             <div class="filtros ">
-                <form action="" method="post">
-                    <label for="inputPrecioMax">Precio Máximo</label>
-                    <input type="number" class="precioMax" id="inputPrecioMax" name="precioMax">
+                <form action="" method="post" id="formFiltroPrecio">
+                    <input type="button" value="Mostrar todas las plantas" id="verTodas">
                     <label for="inputPrecioMin">Precio Mínimo</label>
-                    <input type="number" class="precioMin" id="inputPrecioMin" name="precioMin">
-                    <label for="inputEnStock">Mostrar solo si hay stock</label>
+                    <input type="number" size="5px class=" precioMin" id="inputPrecioMin" name="precioMin">
+                    <label for="inputPrecioMax">Precio Máximo</label>
+                    <input type="number" size="5px" class="precioMax" id="inputPrecioMax" name="precioMax">
+                    <label for="inputEnStock">Mostrar solo las que tienen stock</label>
                     <input class="form-check-input" type="checkbox" name="EnStock" id="inputEnStock">
+                    <input type="submit" value="Enviar">
                 </form>
                 <hr>
             </div>

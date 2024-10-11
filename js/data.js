@@ -13,7 +13,7 @@ const plantasDB = [
         imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Echinopsis_pachanoi_en_Huaraz.jpg/1024px-Echinopsis_pachanoi_en_Huaraz.jpg",
         descripcion: "Cactus columnar, ideal para ambientes áridos.",
         precio: 18.50,
-        stock: 20
+        stock: 0
     },
     {
         id: "A003",
@@ -36,7 +36,7 @@ const plantasDB = [
         nombre: "Orquídea Phalaenopsis",
         imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Phalaenopsis_amabilis_Orchi_03.jpg/1024px-Phalaenopsis_amabilis_Orchi_03.jpg",
         descripcion: "Planta de floración elegante, ideal para interiores.",
-        precio: 29.99,
+        precio: 55.99,
         stock: 0
     },
     {

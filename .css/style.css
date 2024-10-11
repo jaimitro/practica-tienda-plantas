@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
+
+/*_______________________definicion variables_____________________*/
+:root {
+    --color-prim: rgb(72, 179, 113);
+    --color-sec: rgb(33, 36, 46);
+    --color-b: rgb(0, 0, 0);
+    --color-w: rgb(255, 255, 255);
+    --text-col-prim: black;
+    --text-col-sec: grey;
+}
+
 * {
     box-sizing: border-box;
     /*hace que las cajas crezcan hacia adrentro no hacia afuera*/
@@ -12,13 +26,36 @@ img {
     display: block
 }
 
+/*________________Hasta aquí inicializacion____________________*/
+body {
+    font-family: var(--font-prim);
+}
+
+.cabecera {
+    background-color: var(--color-prim);
+    border: 1px solid black;
+}
+
+/*contenedor principal para no exceder ancho*/
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .planta {
     background-color: lightblue;
     border-radius: 10px;
+    padding: 10px;
     width: 200px;
 }
 
+.plantaSinStock {
+    /*Para visualizar que no hay stock*/
+    background-color: lightgrey;
+}
+
 .plantas {
+    padding: 20px;
     display: flex;
     flex-wrap: wrap;
     row-gap: 10px;
@@ -27,6 +64,10 @@ img {
 
 .imgPlanta {
     width: 100px;
+}
+
+.carrito {
+    position: sticky;
 }
 
 .lineaCarrito {
@@ -44,6 +85,10 @@ img {
 .botonAdd {}
 
 .botonPeq {}
+
+label {
+    margin: 0 10px;
+}
 
 .sumaTotal {
     font-weight: bolder;
