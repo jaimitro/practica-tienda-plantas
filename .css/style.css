@@ -4,12 +4,16 @@
 
 /*_______________________definicion variables_____________________*/
 :root {
-    --color-prim: rgb(72, 179, 113);
-    --color-sec: rgb(33, 36, 46);
+    --color-prim: #69b578;
+    --color-sec: #181d27;
+    --color-ter: #d0db97;
+    --color-four: #254d32;
     --color-b: rgb(0, 0, 0);
     --color-w: rgb(255, 255, 255);
     --text-col-prim: black;
     --text-col-sec: grey;
+    --font-prim: "Roboto", sans-serif;
+    --font-sec: "Handlee", cursive;
 }
 
 * {
@@ -26,63 +30,277 @@ img {
     display: block
 }
 
-/*________________Hasta aquí inicializacion____________________*/
+a {
+    text-decoration: none;
+}
+
 body {
     font-family: var(--font-prim);
 }
 
+/* _________________________HEADER__________________________ */
+
 .cabecera {
     background-color: var(--color-prim);
-    border: 1px solid black;
 }
 
 /*contenedor principal para no exceder ancho*/
 .container {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
-.planta {
-    background-color: lightblue;
-    border-radius: 10px;
-    padding: 10px;
-    width: 200px;
+.containerCabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 15px;
 }
 
-.plantaSinStock {
-    /*Para visualizar que no hay stock*/
-    background-color: lightgrey;
+.logo {
+    font-weight: bolder;
+    font-size: 1.5rem;
+    color: var(--color-sec);
 }
+
+@media(width < 768px) {
+    .logo {
+        font-size: 1rem;
+    }
+}
+
+.botonMenuCentro {
+    height: 40px;
+    display: none;
+
+    div {
+        /* display: none; */
+        width: 20px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid var(--color-w);
+        transition: 0.3s;
+    }
+
+    &:hover {
+
+        /*esto es el over del <div> botonMenuCentro no del <div> dentro del <a>*/
+        div {
+            padding-bottom: 7px;
+        }
+    }
+}
+
+@media(width < 768px) {
+    .menuCentro {
+        display: none;
+    }
+
+    .botonMenuCentro {
+        display: inline-block;
+    }
+}
+
+.menuCentro,
+.menuDerecha {
+    ul {
+        display: flex;
+        /*centrado vertical*/
+        align-items: center;
+        column-gap: 10px;
+
+        li {
+            display: inline-block;
+
+            a {
+                /* color: var(--color-w); */
+                transition: 0.5s;
+
+                &:hover {
+                    color: var(--color-sec);
+                    font-weight: bolder;
+                    padding: 0 10px;
+                }
+            }
+        }
+    }
+}
+
+.menuCentro {
+    ul {
+        /*centra horizontal*/
+        justify-content: center;
+    }
+
+    a {
+        color: var(--color-w);
+
+        &:hover {
+            color: var(--color-sec);
+        }
+    }
+}
+
+@media(width < 768px) {
+    .menuCentro {
+        display: none;
+    }
+}
+
+.menuDerecha {
+    width: 150px;
+
+    ul {
+        /*centra horizontal*/
+        justify-content: end;
+    }
+
+    a {
+        color: var(--color-sec);
+
+        &:hover {
+            color: var(--color-ter);
+        }
+    }
+}
+
+@media(width < 768px) {
+    .menuDerecha {
+        ul {
+            justify-content: center;
+        }
+    }
+}
+
+/*_________________ CARRITO ______________________*/
+
+
+/*_________________ FILTROS ______________________*/
+
+.filtros {
+    padding: 10px 10px;
+    font-size: 0.8rem;
+    color: var(--color-four)
+}
+
+.formFiltros {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly
+}
+
+/*TODO mediaquery de los filtros*/
+
+.botonForm {
+    background-color: var(--color-prim);
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    color: var(--color-w);
+    transition: 0.5s;
+
+    &:hover {
+        color: var(--color-sec);
+    }
+}
+
+/*_________________ PLANTAS ______________________*/
 
 .plantas {
     padding: 20px;
     display: flex;
     flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
     row-gap: 10px;
     column-gap: 10px;
 }
 
-.imgPlanta {
-    width: 100px;
+.planta {
+    position: relative;
+    width: 200px;
+    background-color: var(--color-w);
+    border: 1px solid var(--color-ter);
+    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    font-size: 0.8rem;
+    text-align: center;
+
+    figure {
+        margin: 10px 0;
+        color: var(--color-prim);
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
 }
 
+@media(width < 500px) {
+    .planta {
+        width: 100%;
+    }
+}
+
+.labelPrecio {
+    font-weight: bolder;
+    color: var(--color-secr)
+}
+
+.labelStock {
+    font-weight: bolder;
+    color: var(--color-sec);
+}
+
+.divStock {
+    margin-bottom: 50px;
+    /*este margen es necesario para que el boton de Add no se ponga encima del texto*/
+}
+
+.plantaSinStock {
+    /*Para visualizar que no hay stock*/
+    background-color: rgb(233, 233, 233);
+    border: 0px solid var(--color-ter);
+
+    .labelStock {
+        /*label del precio en caso de estar con plantaSinStock*/
+        color: red;
+    }
+}
+
+.botonBase {
+    /*valores comunes en botones de plantas y de carrito / OJO NO PARA FORMULARIO*/
+    display: inline-block;
+    width: 80%;
+    background-color: var(--color-prim);
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    color: var(--color-w);
+    transition: 0.5s;
+
+    &:hover {
+        color: var(--color-sec);
+    }
+}
+
+.botonAdd {
+    position: absolute;
+    bottom: 0px;
+    right: 50%;
+    transform: translate(50%, -50%);
+}
+
+/*_________________CARRITO______________________*/
+
 .carrito {
-    position: sticky;
+    display: none;
 }
 
 .lineaCarrito {
     display: inline-block;
 }
-
-.botonBase {
-    display: inline-block;
-    background-color: lightcoral;
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
-}
-
-.botonAdd {}
 
 .botonPeq {}
 
@@ -94,3 +312,19 @@ label {
     font-weight: bolder;
     color: red;
 }
+
+/*_________________FOOTER______________________*/
+
+.footer {
+    background-color: var(--color-prim);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.legal {
+    color: var(--color-w);
+    padding: 10px 0px;
+}
+
+
+/*_________________MEDIAQUERYS______________________*/

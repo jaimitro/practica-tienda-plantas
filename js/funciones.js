@@ -40,7 +40,7 @@ botonVerTodas.addEventListener("click", (event) => {
     checkStock.checked = false;
     pintarTodasPlantas(plantasDB, plantasEH);
 });
-
+//TODO puedo cambiar los botones del formulario por <div> con addListeners???
 //___________________________FUNCIONES PLANTAS_____________________________________
 
 function retornaHTMLUnaPlanta(producto) {
@@ -49,15 +49,14 @@ function retornaHTMLUnaPlanta(producto) {
     //si no hay stock el fondo es de otro color, podría evitar añadir tambien
     //el boton Añadir al Carrito
     if (producto.stock < 1) articleEH.classList.add("plantaSinStock");
-    const idEH = document.createElement("div");
-    idEH.textContent = producto.id;
-    const nombreEH = document.createElement("div");
+    // const idEH = document.createElement("div"); LOS DESACTIVO PORQUE YA NO LOS QUIERO MOSTRAR
+    // idEH.textContent = producto.id;
+    const nombreEH = document.createElement("h3");
     nombreEH.textContent = producto.nombre;
     //figure con su img y figcaption
     const figureEH = document.createElement("figure");
     const imgEH = document.createElement("img");
     imgEH.src = producto.imagen;
-    imgEH.classList.add("imgPlanta");
     const figcapionEH = document.createElement("figcaption");
     figcapionEH.textContent = producto.nombre;
     figureEH.append(imgEH, figcapionEH);
@@ -66,14 +65,15 @@ function retornaHTMLUnaPlanta(producto) {
     descEH.textContent = producto.descripcion;
     //precio
     const precioEH = document.createElement("div");
-    precioEH.textContent = producto.precio + "€";
+    precioEH.innerHTML = "Precio: <span class='labelPrecio'>" + producto.precio.toFixed(2) + "€</span>";
     //stock    
     const stockEH = document.createElement("div");
-    stockEH.textContent = producto.stock;
+    stockEH.innerHTML = "Stock: <span class='labelStock'>" + producto.stock + "</span> plantas";
+    stockEH.classList.add("divStock");
     //boton añadir a carrito
     const botonAddEH = document.createElement("div");
     botonAddEH.textContent = "Añadir al Carrito";
-    botonAddEH.classList.add("botonBase");
+    botonAddEH.classList.add("botonBase", "botonAdd");
     //dateset funciona usando el setattribute porque le digo que hay un data-loquesea
     //en este caso data-id donde guardo el id de la planta en el boton
     botonAddEH.dataset = producto.id;
@@ -81,7 +81,7 @@ function retornaHTMLUnaPlanta(producto) {
     botonAddEH.addEventListener("click", (event) => {
         agregarProductoACarrito(event.target.dataset.id);
     });
-    articleEH.append(idEH, nombreEH, figureEH, descEH, precioEH, stockEH, botonAddEH);
+    articleEH.append(nombreEH, figureEH, descEH, precioEH, stockEH, botonAddEH);
     return articleEH;
 }
 
