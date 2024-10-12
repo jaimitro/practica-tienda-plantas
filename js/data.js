@@ -66,7 +66,7 @@ const plantasDB = [
     {
         id: "B002",
         nombre: "Aloe Vera",
-        imagen: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Starr_080731-9571_Monstera_deliciosa.jpg",
+        imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Aloe_Vera.jpg/1280px-Aloe_Vera.jpg",
         descripcion: "Planta suculenta conocida por sus propiedades medicinales.",
         precio: 15.00,
         stock: 25
@@ -74,7 +74,7 @@ const plantasDB = [
     {
         id: "B003",
         nombre: "Bambú de la Suerte",
-        imagen: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Starr_080731-9571_Monstera_deliciosa.jpg",
+        imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Sagano%2C_Kyoto_-_DSC06104.JPG/1280px-Sagano%2C_Kyoto_-_DSC06104.JPG",
         descripcion: "Planta decorativa y de buena fortuna, crece en agua.",
         precio: 5.50,
         stock: 40
@@ -82,19 +82,19 @@ const plantasDB = [
     {
         id: "B004",
         nombre: "Lavanda",
-        imagen: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Starr_080731-9571_Monstera_deliciosa.jpg",
+        imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Single_lavender_flower02.jpg/1280px-Single_lavender_flower02.jpg",
         descripcion: "Planta aromática de flores moradas y relajantes.",
         precio: 12.99,
         stock: 18
     },
-    // {
-    //     id: 12,
-    //     nombre: "Calathea Medallion",
-    //     imagen: "calathea.jpg",
-    //     descripcion: "Planta tropical con hojas vistosas y patrones llamativos.",
-    //     precio: 20.99,
-    //     stock: 14
-    // },
+    {
+        id: 12,
+        nombre: "Calathea Medallion",
+        imagen: "https://photo.floraccess.com/1hv2lhvjfe5srjnu9gr73hpjgn5mjaug1f3h58cd_Preview480.webp",
+        descripcion: "Planta tropical con hojas vistosas y patrones llamativos.",
+        precio: 20.99,
+        stock: 14
+    }
     // {
     //     id: 13,
     //     nombre: "Zamioculca",
