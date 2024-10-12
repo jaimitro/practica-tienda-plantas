@@ -5,11 +5,13 @@
 /*_______________________definicion variables_____________________*/
 :root {
     --color-prim: #69b578;
-    --color-sec: #181d27;
+    --color-primTransp: #69b57809;
+    --color-sec: #262f3f;
     --color-ter: #d0db97;
     --color-four: #254d32;
     --color-b: rgb(0, 0, 0);
     --color-w: rgb(255, 255, 255);
+    --color-r: rgb(255, 99, 71);
     --text-col-prim: black;
     --text-col-sec: grey;
     --font-prim: "Roboto", sans-serif;
@@ -63,14 +65,10 @@ body {
     color: var(--color-sec);
 }
 
-@media(width < 768px) {
-    .logo {
-        font-size: 1rem;
-    }
-}
 
 .botonMenuCentro {
     height: 40px;
+    padding-top: 5px;
     display: none;
 
     div {
@@ -90,15 +88,6 @@ body {
     }
 }
 
-@media(width < 768px) {
-    .menuCentro {
-        display: none;
-    }
-
-    .botonMenuCentro {
-        display: inline-block;
-    }
-}
 
 .menuCentro,
 .menuDerecha {
@@ -112,11 +101,9 @@ body {
             display: inline-block;
 
             a {
-                /* color: var(--color-w); */
                 transition: 0.5s;
 
                 &:hover {
-                    color: var(--color-sec);
                     font-weight: bolder;
                     padding: 0 10px;
                 }
@@ -140,11 +127,6 @@ body {
     }
 }
 
-@media(width < 768px) {
-    .menuCentro {
-        display: none;
-    }
-}
 
 .menuDerecha {
     width: 150px;
@@ -158,37 +140,89 @@ body {
         color: var(--color-sec);
 
         &:hover {
-            color: var(--color-ter);
+            color: var(--color-four);
         }
     }
 }
 
-@media(width < 768px) {
-    .menuDerecha {
-        ul {
-            justify-content: center;
-        }
-    }
-}
 
 /*_________________ CARRITO ______________________*/
 
+.carrito {
+    z-index: 1000;
+    position: fixed;
+    top: 115px;
+    left: 20px;
+    /* width: 350px; */
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--color-prim);
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.336);
+    padding: 10px;
+    font-size: 0.7rem;
+    transition: 0.5s;
+
+    h4 {
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+.lineaCarrito {
+    display: inline-block;
+}
+
+.moverCarrito {
+    left: -400px;
+}
+
+.botonBase {
+    /*valores comunes en botones de plantas y de carrito / OJO NO PARA FORMULARIO*/
+    display: inline-block;
+    background-color: var(--color-prim);
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    color: var(--color-w);
+    transition: 0.5s;
+
+    &:hover {
+        color: var(--color-sec);
+    }
+}
+
+.botonPeq {
+    min-width: 20px;
+    text-align: center;
+    margin: 0 3px 2px 0;
+    background-color: var(--color-r);
+}
+
+label {
+    margin: 0 10px;
+}
+
+.sumaTotal {
+    font-weight: bolder;
+    color: var(--color-r);
+    margin: 5px 0 5px 0;
+    font-size: 0.8rem;
+}
 
 /*_________________ FILTROS ______________________*/
 
 .filtros {
-    padding: 10px 10px;
+    padding: 10px 10px 0 10px;
     font-size: 0.8rem;
     color: var(--color-four)
 }
 
 .formFiltros {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly
 }
-
-/*TODO mediaquery de los filtros*/
 
 .botonForm {
     background-color: var(--color-prim);
@@ -202,6 +236,18 @@ body {
     &:hover {
         color: var(--color-sec);
     }
+}
+
+.botonCheck {
+    margin: 0 5px 0 0;
+    padding: 0;
+}
+
+hr {
+    border: 0;
+    margin: 10px 20px 0 20px;
+    height: 1px;
+    background-image: linear-gradient(to right, var(--color-primTransp), var(--color-prim), var(--color-primTransp));
 }
 
 /*_________________ PLANTAS ______________________*/
@@ -237,11 +283,6 @@ body {
     }
 }
 
-@media(width < 500px) {
-    .planta {
-        width: 100%;
-    }
-}
 
 .labelPrecio {
     font-weight: bolder;
@@ -265,52 +306,16 @@ body {
 
     .labelStock {
         /*label del precio en caso de estar con plantaSinStock*/
-        color: red;
-    }
-}
-
-.botonBase {
-    /*valores comunes en botones de plantas y de carrito / OJO NO PARA FORMULARIO*/
-    display: inline-block;
-    width: 80%;
-    background-color: var(--color-prim);
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
-    color: var(--color-w);
-    transition: 0.5s;
-
-    &:hover {
-        color: var(--color-sec);
+        color: var(--color-r);
     }
 }
 
 .botonAdd {
+    width: 80%;
     position: absolute;
     bottom: 0px;
     right: 50%;
     transform: translate(50%, -50%);
-}
-
-/*_________________CARRITO______________________*/
-
-.carrito {
-    display: none;
-}
-
-.lineaCarrito {
-    display: inline-block;
-}
-
-.botonPeq {}
-
-label {
-    margin: 0 10px;
-}
-
-.sumaTotal {
-    font-weight: bolder;
-    color: red;
 }
 
 /*_________________FOOTER______________________*/
@@ -328,3 +333,26 @@ label {
 
 
 /*_________________MEDIAQUERYS______________________*/
+@media(width < 768px) {
+    .logo {
+        font-size: 1rem;
+    }
+
+    .botonMenuCentro {
+        display: inline-block;
+    }
+
+    .menuCentro {
+        display: none;
+    }
+
+    .menuDerecha {
+        ul {
+            justify-content: center;
+        }
+    }
+
+    .planta {
+        width: 100%;
+    }
+}

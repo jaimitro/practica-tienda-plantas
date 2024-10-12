@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
     <!-- ______________________________CABECERA______________________________ -->
     <header class="cabecera">
         <div class="container">
@@ -17,25 +18,24 @@
                 <div>
                     <span class="logo">LEANDRO'S GREEN</span>
                 </div>
-
                 <nav class="menuCentro">
                     <ul>
-                        <li><a href="">Inicio</a></li>
-                        <li><a href="">Plantas</a></li>
-                        <li><a href="">Blog</a></li>
-                        <li><a href="">Contacto</a></li>
+                        <li><a href="3">Inicio</a></li>
+                        <li><a href="#">Plantas</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contacto</a></li>
                     </ul>
                 </nav>
                 <nav class="menuDerecha">
                     <ul>
-                        <li><a href=""><i class="fa-solid fa-envelope"></i></a></li>
-                        <li><a href=""><i class="fa-solid fa-phone"></i></a></li>
-                        <li><a href=""><i class="fa-solid fa-cart-shopping"></i></a></li>
-                        <li><a href=""><i class="fa-solid fa-user"></i></a></li>
+                        <li><a href="#"><i class="fa-solid fa-envelope"></i></a></li>
+                        <li><a href="#"><i class="fa-solid fa-phone"></i></a></li>
+                        <li><a href="#" class="botonVerCarrito"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                        <li><a href="#"><i class="fa-solid fa-user"></i></a></li>
                     </ul>
                 </nav>
                 <div class="botonMenuCentro">
-                    <a href="">
+                    <a href="#">
                         <div></div>
                         <div></div>
                         <div></div>
@@ -49,11 +49,11 @@
         <div class="container">
             <!-- ______________________________CARRITO______________________________ -->
             <div class="carrito">
-                <h3>Carrito de Compras</h3>
+                <h4><i class="fa-solid fa-cart-shopping" style="margin-right: 5px;"></i>Carrito de
+                    Compras</h4>
                 <div class="listaCarrito"></div>
                 <div class="botonVaciarCarrito botonBase">Vaciar Carrito</div>
                 <div class="botonProceder botonBase">Proceder a Comprar</div>
-                <hr>
             </div>
             <!-- ______________________________FILTROS______________________________ -->
             <div class="filtros">
@@ -61,20 +61,21 @@
                     <div>
                         <i class="fa-solid fa-earth-americas"></i>
                         <input class="botonForm" type="button" value="Ver todas las plantas" id="verTodas">
+
+                        <label for="inputEnStock"><input class="botonCheck" type="checkbox" name="EnStock"
+                                id="inputEnStock">Mostrar solo las que tienen stock</label>
                     </div>
                     <div>
-                        <!-- OJO el check tenia esto antes: class="form-check-input" -->
-                        <input class="botonForm" type="checkbox" name="EnStock" id="inputEnStock">
-                        <label for="inputEnStock">Mostrar solo las que tienen stock</label>
-                    </div>
-                    <div>
-                        <label for="inputPrecioMin">Precio Mínimo</label>
-                        <input type="number" size="5px class=" precioMin" id="inputPrecioMin" name="precioMin">
-                        <label for="inputPrecioMax">Precio Máximo</label>
-                        <input type="number" size="5px" class="precioMax" id="inputPrecioMax" name="precioMax">
+                        <label for="inputPrecioMin">Precio Mínimo <input type="number" size="5px class=" precioMin"
+                                id="inputPrecioMin" name="precioMin"></label>
+
+                        <label for="inputPrecioMax">Precio Máximo <input type="number" size="5px" class="precioMax"
+                                id="inputPrecioMax" name="precioMax"></label>
+
                         <input class="botonForm" type="submit" value="Filtrar">
                     </div>
                 </form>
+                <hr>
             </div>
             <!-- ______________________________PLANTAS______________________________ -->
             <div class="plantas">

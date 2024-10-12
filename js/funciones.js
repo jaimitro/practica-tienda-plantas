@@ -1,7 +1,20 @@
 //declaro valores iniciales
 const carrito = [];
 const plantasEH = document.querySelector(".plantas");
+const CarritoEH = document.querySelector(".carrito");
+CarritoEH.classList.add("moverCarrito");
 const listaCarritoEH = document.querySelector(".listaCarrito");
+
+const botonMenuCentro = document.querySelector(".botonMenuCentro");
+botonMenuCentro.addEventListener("click", (event) => {
+    //TODO mostrar menu en columna
+});
+
+const botonVerCarrito = document.querySelector(".botonVerCarrito");
+botonVerCarrito.addEventListener("click", (event) => {
+    mostrarOcultarCarrito();
+    //0 hace toggle / 1 es para boton añadir nueva planta / 2 es para quitar ultima linea carrito
+});
 
 const botonVaciarCarritoEH = document.querySelector(".botonVaciarCarrito");
 botonVaciarCarritoEH.addEventListener("click", vaciarCarrito);
@@ -150,40 +163,40 @@ function pintarCarrito(carrito, domElem) {
 
             const lineaPlantaYValoresEH = document.createElement("p");
             lineaPlantaYValoresEH.classList.add("lineaCarrito");
-            lineaPlantaYValoresEH.textContent = `${linea.id} - ${linea.nombre}: ${linea.cantidad}x${linea.precio}€ = ${(linea.cantidad * linea.precio).toFixed(2)}€`;
+            lineaPlantaYValoresEH.textContent = `${linea.nombre}: ${linea.cantidad} x ${linea.precio}€ = ${(linea.cantidad * linea.precio).toFixed(2)}€`;
 
             const botonMenosEH = document.createElement("div");
-            botonMenosEH.textContent = " - ";
+            botonMenosEH.textContent = "-";
             //se podria usar setAttribute("id",linea.id) usando el atributo
             //existente id pero no creo que sea profesional, recuerda dataset necesita del
             //atributo en html data-loquesea, luego se le llama con dataset.id (sin el data- delante)
             botonMenosEH.setAttribute("data-id", linea.id);
             botonMenosEH.dataset = linea.id;
-            botonMenosEH.classList.add("botonBase");
+            botonMenosEH.classList.add("botonBase", "botonPeq");
             botonMenosEH.addEventListener("click", restarUnaPlanta);
 
             const botonMasEH = document.createElement("div");
-            botonMasEH.textContent = " + ";
+            botonMasEH.textContent = "+";
             botonMasEH.dataset = linea.id;
             botonMasEH.setAttribute("data-id", linea.id);
-            botonMasEH.classList.add("botonBase");
+            botonMasEH.classList.add("botonBase", "botonPeq");
             botonMasEH.addEventListener("click", sumarUnaPlanta);
 
             const botonQuitarEH = document.createElement("div");
-            botonQuitarEH.textContent = " Eliminar ";
+            botonQuitarEH.textContent = "Eliminar";
             botonQuitarEH.dataset = linea.id;
             botonQuitarEH.setAttribute("data-id", linea.id);
-            botonQuitarEH.classList.add("botonBase");
+            botonQuitarEH.classList.add("botonBase", "botonPeq");
             botonQuitarEH.addEventListener("click", quitarPlanta);
 
-            lineaCarritoEH.append(lineaPlantaYValoresEH, botonMenosEH, botonMasEH, botonMenosEH, botonMasEH, botonQuitarEH);
+            lineaCarritoEH.append(botonMenosEH, botonMasEH, botonQuitarEH, lineaPlantaYValoresEH);
             domElem.appendChild(lineaCarritoEH);
         }
         //despues de todas las lineas añado la suma total
 
         const sumaTotalEH = document.createElement("div");
         sumaTotalEH.classList.add("sumaTotal");
-        sumaTotalEH.textContent = sumarCarrito(carrito) + "€";//funcion que suma todo el carrito
+        sumaTotalEH.textContent = "Total Compra: " + sumarCarrito(carrito) + "€";//funcion que suma todo el carrito
         domElem.appendChild(sumaTotalEH);//finalmente pinto la suma abajo del carrito
     }
 }
@@ -191,6 +204,7 @@ function pintarCarrito(carrito, domElem) {
 //Funcion llama a las anteriores y que es llamada por listener del boton "Añadir al Carrito"
 function agregarProductoACarrito(idPlanta) {
     agregarLineaArrayCarrito(idPlanta);
+    mostrarOcultarCarrito(1);
     pintarCarrito(carrito, listaCarritoEH);
     //TODO quiza tendria que cambiar solo las lineas que han cambiado su
     //stock en vez de pintar todo otra vez, ver como hacer
@@ -237,6 +251,7 @@ function quitarPlanta(event) {
     plantasDB[posEnPlantasDB].stock += cantidad;
     carrito.splice(posEnCarrito, 1);
     pintarCarrito(carrito, listaCarritoEH);
+    mostrarOcultarCarrito(2)
     pintarTodasPlantas(plantasDB, plantasEH);
 }
 //Funcion del boton Vaciar carrito
@@ -248,6 +263,7 @@ function vaciarCarrito() {
         }
         carrito.splice(0, carrito.length);
         pintarCarrito(carrito, listaCarritoEH);
+        mostrarOcultarCarrito()
         pintarTodasPlantas(plantasDB, plantasEH);
     } else {
         alert("No hay nada que vaciar")
@@ -262,6 +278,29 @@ function procederCompra() {
         alert("No hay nada que comprar en la lista");
     }
 }
+//Funcion que se encarga de mostrar el carrito en funcion de lo que pase
+//0 hace togle, por defecto si no se pone nada
+//1 ocurre cuando se agrega nueva planta (si hiciera togle se oculta/muestra cada vez que das al boton)
+//2 quitar ultima planta del carrito, sino cada vez que quitase una linea se oculta/muestra 
+function mostrarOcultarCarrito(estado = 0) {
+    console.log(estado);
+    console.log(CarritoEH.classList.contains("moverCarrito"));
+
+    setTimeout(() => {
+        switch (estado) {
+            case 2:
+                if (carrito.length < 1) CarritoEH.classList.add("moverCarrito");
+                break;
+            case 1:
+                CarritoEH.classList.remove("moverCarrito");
+                break;
+            default:
+                CarritoEH.classList.toggle("moverCarrito");
+                break;
+        }
+    }, 400);
+}
+
 
 //________________________________FILTROS__________________________
 
