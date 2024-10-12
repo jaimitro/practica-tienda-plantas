@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
 
 /*_______________________definicion variables_____________________*/
@@ -88,22 +87,24 @@ body {
     }
 }
 
-
-.menuCentro,
 .menuDerecha {
     ul {
         display: flex;
+        justify-content: end;
+        width: 150px;
         /*centrado vertical*/
         align-items: center;
         column-gap: 10px;
 
         li {
-            display: inline-block;
+            display: block;
 
             a {
+                color: var(--color-sec);
                 transition: 0.5s;
 
                 &:hover {
+                    color: var(--color-four);
                     font-weight: bolder;
                     padding: 0 10px;
                 }
@@ -114,50 +115,39 @@ body {
 
 .menuCentro {
     ul {
-        /*centra horizontal*/
-        justify-content: center;
-    }
+        display: flex;
 
-    a {
-        color: var(--color-w);
+        li {
+            display: block;
+            margin: 0 5px 0 5px;
 
-        &:hover {
-            color: var(--color-sec);
+            a {
+                color: var(--color-w);
+                transition: 0.3s;
+
+                &:hover {
+                    font-weight: bolder;
+                    margin: 0 10px 0 10px;
+                    color: var(--color-sec);
+                }
+
+            }
         }
     }
 }
-
-
-.menuDerecha {
-    width: 150px;
-
-    ul {
-        /*centra horizontal*/
-        justify-content: end;
-    }
-
-    a {
-        color: var(--color-sec);
-
-        &:hover {
-            color: var(--color-four);
-        }
-    }
-}
-
 
 /*_________________ CARRITO ______________________*/
 
 .carrito {
     z-index: 1000;
     position: fixed;
-    top: 115px;
+    bottom: 50px;
     left: 20px;
     /* width: 350px; */
     background-color: rgba(255, 255, 255, 0.9);
     border: 1px solid var(--color-prim);
     border-radius: 10px;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.336);
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
     padding: 10px;
     font-size: 0.7rem;
     transition: 0.5s;
@@ -339,11 +329,55 @@ hr {
     }
 
     .botonMenuCentro {
-        display: inline-block;
+        display: block;
     }
 
     .menuCentro {
-        display: none;
+        position: absolute;
+        /* display: none; */
+        width: 100%;
+        z-index: 1;
+        /*TODO OJO cuando esta oculto el menu (al -100% de derecha) aparece un scroll horizontal
+        no se como solucionarlo, o quito la animacion y hago display none*/
+        right: -100%;
+        top: 69px;
+        flex-direction: column;
+        text-align: center;
+        background-color: var(--color-prim);
+        border: 1px solid var(--color-ter);
+        transition: 0.3s;
+
+        ul {
+            flex-direction: column;
+
+            li {
+                padding: 5px 0px;
+
+                a {
+                    color: var(--color-w);
+                    transition: 0.3s;
+
+                    &:hover {
+                        margin: 0;
+                        /*margin 0: evitar movimiento horizontal del menu cuando esta en horizontal*/
+                        right: 0px;
+                        font-weight: bolder;
+                        color: var(--color-sec);
+
+                    }
+                }
+
+                &:hover {
+                    background-color: var(--color-ter);
+                }
+            }
+        }
+    }
+
+    .mostrarMenuCentro {
+        /*clase que se asigna desde js cuando click sobre boton hamburguesa*/
+        /* display: block; */
+        right: 0px;
     }
 
     .menuDerecha {

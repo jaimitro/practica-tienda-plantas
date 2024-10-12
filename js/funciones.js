@@ -5,9 +5,11 @@ const CarritoEH = document.querySelector(".carrito");
 CarritoEH.classList.add("moverCarrito");
 const listaCarritoEH = document.querySelector(".listaCarrito");
 
+const menuCentro = document.querySelector(".menuCentro");
 const botonMenuCentro = document.querySelector(".botonMenuCentro");
 botonMenuCentro.addEventListener("click", (event) => {
-    //TODO mostrar menu en columna
+    menuCentro.classList.toggle("mostrarMenuCentro");
+    console.log("botonMenuCentro");
 });
 
 const botonVerCarrito = document.querySelector(".botonVerCarrito");
